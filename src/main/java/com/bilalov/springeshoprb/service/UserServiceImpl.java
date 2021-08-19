@@ -10,9 +10,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -42,6 +45,18 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public void save(User user) {
+        userRepository.save(user);
+    }
+
+    @Override
+    public List<UserDTO> getAll() {
+        return userRepository.findAll().stream()
+                .map(this::toDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findFirstByName(username);
         if(user == null){
@@ -54,5 +69,41 @@ public class UserServiceImpl implements UserService{
                 user.getName(),
                 user.getPassword(),
                 roles);
+    }
+
+    private UserDTO toDto(User user) {
+        return UserDTO.builder()
+                .username(user.getName())
+                .email(user.getEmail())
+                .build();
+    }
+
+    @Override
+    public User findByName(String name) {
+        return userRepository.findFirstByName(name);
+    }
+
+    @Override
+    @Transactional
+    public void updateProfile(UserDTO dto) {
+        User savedUser = userRepository.findFirstByName(dto.getUsername());
+        if (savedUser == null) {
+            throw new RuntimeException("User not found by name " + dto.getUsername());
+        }
+
+        boolean isChanged = false;
+        if (dto.getPassword() != null && !dto.getPassword().isEmpty()) {
+            savedUser.setPassword(passwordEncoder.encode(dto.getPassword()));
+            isChanged = true;
+        }
+
+        if (!Objects.equals(dto.getEmail(), savedUser.getEmail())) {
+            savedUser.setEmail(dto.getEmail());
+            isChanged = true;
+        }
+
+        if (isChanged) {
+            userRepository.save(savedUser);
+        }
     }
 }
