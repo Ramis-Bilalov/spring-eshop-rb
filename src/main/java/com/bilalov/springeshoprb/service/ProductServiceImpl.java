@@ -1,10 +1,13 @@
 package com.bilalov.springeshoprb.service;
 
+import com.bilalov.springeshoprb.SpringEshopRbApplication;
 import com.bilalov.springeshoprb.dao.ProductRepository;
 import com.bilalov.springeshoprb.domain.Bucket;
 import com.bilalov.springeshoprb.domain.User;
 import com.bilalov.springeshoprb.dto.ProductDTO;
 import com.bilalov.springeshoprb.mapper.ProductMapper;
+import org.springframework.boot.SpringApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +22,7 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     private final UserService userService;
     private final BucketService bucketService;
+
 
     public ProductServiceImpl(ProductRepository productRepository, UserService userService, BucketService bucketService) {
         this.productRepository = productRepository;

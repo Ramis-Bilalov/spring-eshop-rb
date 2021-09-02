@@ -3,7 +3,6 @@ package com.bilalov.springeshoprb.service;
 import com.bilalov.springeshoprb.domain.Bucket;
 import com.bilalov.springeshoprb.domain.User;
 import com.bilalov.springeshoprb.dto.BucketDTO;
-import com.bilalov.springeshoprb.dto.BucketDetailDTO;
 
 import java.util.List;
 

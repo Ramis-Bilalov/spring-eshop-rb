@@ -9,7 +9,6 @@ import com.bilalov.springeshoprb.dto.BucketDTO;
 import com.bilalov.springeshoprb.dto.BucketDetailDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -25,6 +24,7 @@ public class BucketServiceImpl implements BucketService {
         this.productRepository = productRepository;
         this.userService = userService;
     }
+
 
     @Override
     @Transactional
