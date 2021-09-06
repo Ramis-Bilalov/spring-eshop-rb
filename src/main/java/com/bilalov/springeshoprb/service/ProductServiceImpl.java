@@ -1,13 +1,12 @@
 package com.bilalov.springeshoprb.service;
 
-import com.bilalov.springeshoprb.SpringEshopRbApplication;
 import com.bilalov.springeshoprb.dao.ProductRepository;
 import com.bilalov.springeshoprb.domain.Bucket;
+import com.bilalov.springeshoprb.domain.Product;
 import com.bilalov.springeshoprb.domain.User;
 import com.bilalov.springeshoprb.dto.ProductDTO;
 import com.bilalov.springeshoprb.mapper.ProductMapper;
-import org.springframework.boot.SpringApplication;
-import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,12 +21,13 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     private final UserService userService;
     private final BucketService bucketService;
+    private final SimpMessagingTemplate template;
 
-
-    public ProductServiceImpl(ProductRepository productRepository, UserService userService, BucketService bucketService) {
+    public ProductServiceImpl(ProductRepository productRepository, UserService userService, BucketService bucketService, SimpMessagingTemplate template) {
         this.productRepository = productRepository;
         this.userService = userService;
         this.bucketService = bucketService;
+        this.template = template;
     }
 
     @Override
@@ -51,5 +51,13 @@ public class ProductServiceImpl implements ProductService {
         } else {
             bucketService.addProducts(bucket, Collections.singletonList(productId));
         }
+    }
+
+    @Override
+    @Transactional
+    public void addProduct(ProductDTO dto) {
+        Product product = mapper.toProduct(dto);
+        Product savedProduct = productRepository.save(product);
+        template.convertAndSend("/topic/products", ProductMapper.MAPPER.fromProduct(savedProduct));
     }
 }
