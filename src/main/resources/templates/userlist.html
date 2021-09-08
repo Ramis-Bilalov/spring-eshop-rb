@@ -6,8 +6,8 @@
 </head>
 <body>
 <div th:insert="~{fragments/menu :: #nav-menu}"></div>
-
-<table border="1">
+<h2 align="center">Users</h2>
+<table border="1" align="center">
     <tr>
         <td>Name</td>
         <td>Email</td>
@@ -17,7 +17,8 @@
         <td th:text="${user.email}">Testmail</td>
     </tr>
 </table>
+<h3 align="center">
 <a th:href="@{/users/new}">Add new</a>
-
+</h3>
 </body>
 </html>
