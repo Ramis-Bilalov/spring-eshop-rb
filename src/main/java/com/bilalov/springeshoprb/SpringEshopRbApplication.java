@@ -5,9 +5,11 @@ import com.bilalov.springeshoprb.service.ProductService;
 import com.bilalov.springeshoprb.service.UserService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.config.server.EnableConfigServer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+@EnableConfigServer
 @SpringBootApplication
 public class SpringEshopRbApplication {
 
