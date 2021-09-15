@@ -1,6 +1,7 @@
 package com.bilalov.springeshoprb.controllers;
 
 import com.bilalov.springeshoprb.database.DatabaseConnect;
+import com.bilalov.springeshoprb.database.DatabaseService;
 import com.bilalov.springeshoprb.dto.BucketDTO;
 import com.bilalov.springeshoprb.service.BucketService;
 import org.springframework.stereotype.Controller;
@@ -21,7 +22,8 @@ public class BucketController {
 
     public BucketController(BucketService bucketService) throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         this.bucketService = bucketService;
-        this.db = new DatabaseConnect();
+        DatabaseService databaseService = new DatabaseService();
+        db = new DatabaseConnect(databaseService);
     }
 
     @GetMapping
