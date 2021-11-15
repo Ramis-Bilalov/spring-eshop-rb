@@ -17,7 +17,7 @@ public class DatabaseConnect {
     private int bucketId;
 
     @Autowired
-    public DatabaseConnect(DatabaseService databaseService) {
+    public DatabaseConnect() {
         System.out.println("------------------------------------------------------------------------");
         url = "jdbc:postgresql://localhost:5432/shop";
         username = "postgres";
@@ -27,7 +27,7 @@ public class DatabaseConnect {
         } catch (Exception ex) {}
     }
 
-    public void removeFromBucket(String title, String username) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    public void removeFromBucket(String title, String username) {
         try {
             try (Connection conn = DriverManager.getConnection(url, this.username, password)){
                 String productTitle = "SELECT * FROM products where title='" + title + "';";
@@ -47,10 +47,11 @@ public class DatabaseConnect {
                     System.out.println(userId);
                     st2.close();
                     rs2.close();
+                    System.out.println("-----******--------********----------***********-----------***************");
                 }
                 String bucket = "SELECT * FROM buckets where user_id='" + userId + "';";
                 Statement st3 = conn.createStatement();
-                ResultSet rs3 = st3.executeQuery(userName);
+                ResultSet rs3 = st3.executeQuery(bucket);
                 if(rs3.next()) {
                     bucketId = (rs3.getInt("id"));
                     System.out.println(bucketId);

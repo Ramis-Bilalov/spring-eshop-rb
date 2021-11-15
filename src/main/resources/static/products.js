@@ -21,7 +21,7 @@ $(function () {
     $("form").on('submit', function (e) {
         e.preventDefault();
     });
-    $( "#send" ).click(function() { sendContent(); });
+    $("#send").click(function() { sendContent(); });
 });
 
 // отправка сообщения на сервер

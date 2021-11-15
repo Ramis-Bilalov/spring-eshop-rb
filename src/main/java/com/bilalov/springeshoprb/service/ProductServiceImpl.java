@@ -36,7 +36,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    @Transactional
+    @javax.transaction.Transactional
     public void addToUserBucket(Long productId, String username) {
         User user = userService.findByName(username);
         if (user == null) {
@@ -59,5 +59,11 @@ public class ProductServiceImpl implements ProductService {
         Product product = mapper.toProduct(dto);
         Product savedProduct = productRepository.save(product);
         template.convertAndSend("/topic/products", ProductMapper.MAPPER.fromProduct(savedProduct));
+    }
+
+    @Override
+    public ProductDTO getById(Long id) {
+        Product product = productRepository.findById(id).orElse(new Product());
+        return ProductMapper.MAPPER.fromProduct(product);
     }
 }
