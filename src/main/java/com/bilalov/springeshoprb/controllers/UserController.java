@@ -55,6 +55,7 @@ public class UserController {
         }
     }
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/profile")
     public String profileUser(Model model, Principal principal) {
         if (principal == null) {
@@ -70,6 +71,7 @@ public class UserController {
         return "profile";
     }
 
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/profile")
     public String updateProfileUser(UserDTO dto, Model model, Principal principal) {
         if (principal == null || !Objects.equals(principal.getName(), dto.getUsername())) {

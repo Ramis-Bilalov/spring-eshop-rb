@@ -5,7 +5,8 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/Ramis-Bilalov/spring-cloud-config/blob/main.git
+          uri: https://github.com/Ramis-Bilalov/spring-cloud-config.git
+          default-label: main
   datasource:
     url: jdbc:postgresql://localhost:5432/shop
     username: postgres

@@ -55,4 +55,3 @@ public class WebServiceConfig {
         return new SimpleXsdSchema(new ClassPathResource("ws/products.xsd"));
     }
 }
-

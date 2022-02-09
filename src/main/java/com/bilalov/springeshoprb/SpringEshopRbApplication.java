@@ -11,7 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.lang.reflect.InvocationTargetException;
 
-@EnableConfigServer
+//@EnableConfigServer
 @SpringBootApplication
 public class SpringEshopRbApplication {
 

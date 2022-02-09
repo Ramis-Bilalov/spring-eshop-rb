@@ -12,7 +12,6 @@ public class DatabaseService {
     @Value("${spring.datasource.username}")
     String username;
 
-
     public String getDatabaseUrl() {
         return url;
     }
@@ -20,5 +19,4 @@ public class DatabaseService {
     public String getUsername() {
         return username;
     }
-
 }

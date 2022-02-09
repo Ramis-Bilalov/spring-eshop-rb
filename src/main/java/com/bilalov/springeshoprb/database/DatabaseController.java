@@ -23,5 +23,4 @@ public class DatabaseController {
     public String getUsername() {
         return databaseService.getUsername();
     }
-
 }
