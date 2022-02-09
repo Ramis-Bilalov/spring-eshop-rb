@@ -1,24 +1,30 @@
 package com.bilalov.springeshoprb.database;
 
-import com.bilalov.springeshoprb.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
 
+@Component
 public class DatabaseConnect {
 
-    private final String url;
-    private final String username;
-    private final String password;
+    private String url;
+    private String username;
+    private String password;
     private int productId;
     private int userId;
     private int bucketId;
 
-    public DatabaseConnect() throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    @Autowired
+    public DatabaseConnect(DatabaseService databaseService) {
+        System.out.println("------------------------------------------------------------------------");
         url = "jdbc:postgresql://localhost:5432/shop";
         username = "postgres";
         password = "postgres";
-        Class.forName("org.postgresql.Driver").getDeclaredConstructor().newInstance();
+        try {
+            Class.forName("org.postgresql.Driver").getDeclaredConstructor().newInstance();
+        } catch (Exception ex) {}
     }
 
     public void removeFromBucket(String title, String username) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
